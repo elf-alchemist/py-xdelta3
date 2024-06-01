@@ -27,26 +27,5 @@ classifiers = [
     "Topic :: System :: Archiving :: Compression",
 ]
 
-[tool.setuptools]
-packages = ["py-xdelta3"]
-
-[tool.setuptools.package-data]
-"xdelta3" = ["_xdelta3.c", "lib/*"]
-
-[tool.setuptools.extension]
-_xdelta3 = {
-    sources = ["xdelta3/_xdelta3.c"]
-    include-dirs = ["./xdelta3/lib"]
-    define-macros = [
-        ["SIZEOF_SIZE_T", "8"],
-        ["SIZEOF_UNSIGNED_LONG_LONG", "8"],
-        ["XD3_USE_LARGEFILE64", "1"],
-        # Uncomment the next line to enable secondary compression with lzma
-        # ["SECONDARY_LZMA", "1"],
-        # Uncomment the next line to add verbose debug output to xdelta3
-        # ["XD3_DEBUG", "3"]
-    ]
-}
-
 [tool.setuptools.dynamic]
 version = {attr = "xdelta3.version.VERSION"}
