@@ -1,4 +1,5 @@
 #define NOT_MAIN 1
+#define PY_SSIZE_T_CLEAN 1
 
 #include "xdelta3.h"
 #include "xdelta3.c"
