@@ -1,37 +1,50 @@
+from importlib.machinery import SourceFileLoader
 from setuptools import setup, Extension
+from pathlib import Path
 
-# Define the extension module
-xdelta3_extension = Extension(
-    name='xdelta3._xdelta3',  # Module name, including package
-    sources=['xdelta3/_xdelta3.c'],  # Path to the C source file
-    include_dirs=['/usr/local/include'],  # Modify as needed
-    libraries=['xdelta3'],  # Libraries to link against
-    library_dirs=['/usr/local/lib'],  # Modify as needed
-    extra_compile_args=['-std=c99'],  # Additional compile arguments if necessary
-    extra_link_args=[]  # Additional linker arguments if necessary
-)
+dir = Path(__file__).resolve().parent
+long_description = dir.joinpath('README.md').read_text()
 
-# Setup script
+version = SourceFileLoader('version', 'xdelta3/version.py').load_module()
+
+package = dir.joinpath('xdelta3')
+package_data = ['_xdelta3.c']
+if package.joinpath('lib').exists():
+    package_data += ['lib/' + f.name for f in package.joinpath('lib').iterdir()]
+
 setup(
-    name='py-xdelta3',
-    version='0.3.2',
+    name='xdelta3',
+    version=str(version.VERSION),
     description='Modern Python wrapper around xdelta3',
-    long_description=open('README.md').read(),
-    long_description_content_type='text/markdown',
-    author='Guilherme M. Miranda, Samuel Colvin',
-    author_email='alchemist.software@proton.me, s@muelcolvin.com',
+    long_description=long_description,
+    author='Guilherme M. Miranda',
+    author_email='alchemist.software@proton.me',
     url='https://github.com/elf-alchemist/py-xdelta3',
-    classifiers=[
-        "Development Status :: 4 - Beta",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "License :: OSI Approved :: Apache Software License",
-        "Operating System :: Unix",
-        "Operating System :: POSIX :: Linux",
-        "Topic :: System :: Archiving :: Compression",
-    ],
+    license='Apache License, Version 2.0',
     packages=['xdelta3'],
-    ext_modules=[xdelta3_extension],
+    package_data={ 'xdelta3': package_data },
+    zip_safe=True,
+    ext_modules=[
+        Extension(
+            '_xdelta3',
+            sources=['xdelta3/_xdelta3.c'],
+            include_dirs=['./xdelta3/lib'],
+            define_macros=[
+                ('SIZEOF_SIZE_T', '8'),
+                ('SIZEOF_UNSIGNED_LONG_LONG', '8'),
+                ('XD3_USE_LARGEFILE64', '1'),
+            ]
+        )
+    ],
+	classifiers=[
+		"Development Status :: 4 - Beta",
+		"Programming Language :: Python",
+		"Programming Language :: Python :: 3",
+		"Programming Language :: Python :: 3.5",
+		"Programming Language :: Python :: 3.6",
+		"License :: OSI Approved :: Apache Software License",
+		"Operating System :: Unix",
+		"Operating System :: POSIX :: Linux",
+		"Topic :: System :: Archiving :: Compression",
+	],
 )
