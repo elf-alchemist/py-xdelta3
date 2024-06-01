@@ -108,6 +108,6 @@ def print_version():
     """
     Print version info for xdelta3-python and the xdelta3 c library.
     """
-    print('xdelta3-python:', VERSION, file=sys.stderr)
+    print('py-xdelta3:', VERSION, file=sys.stderr)
     print('xdelta3-c library:', file=sys.stderr)
     _xdelta3.version()

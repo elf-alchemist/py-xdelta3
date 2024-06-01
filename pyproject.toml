@@ -1,10 +1,6 @@
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "py-xdelta3"
-version = "0.3.1"
+version = "0.1.0"
 description = "Modern Python wrapper around xdelta3"
 readme = "README.md"
 requires-python = ">=3.5"
@@ -27,5 +23,6 @@ classifiers = [
     "Topic :: System :: Archiving :: Compression",
 ]
 
-[tool.setuptools.dynamic]
-version = {attr = "xdelta3.version.VERSION"}
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
