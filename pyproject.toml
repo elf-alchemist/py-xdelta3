@@ -1,5 +1,5 @@
 [project]
-name = "py-xdelta3"
+name = "py_xdelta3"
 version = "0.1.0"
 description = "Modern Python wrapper around xdelta3"
 readme = "README.md"

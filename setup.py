@@ -13,7 +13,7 @@ if package.joinpath('lib').exists():
     package_data += ['lib/' + f.name for f in package.joinpath('lib').iterdir()]
 
 setup(
-    name='xdelta3',
+    name='py_xdelta3',
     version=str(version.VERSION),
     description='Modern Python wrapper around xdelta3',
     long_description=long_description,
